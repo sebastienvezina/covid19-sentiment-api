@@ -1,0 +1,5 @@
+__pycache__
+.well-known
+.env
+data/*.csv
+db/*.db

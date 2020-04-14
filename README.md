@@ -1,1 +1,1 @@
-# covid19-sentiment-api
+# covid19-headline-sentiment
