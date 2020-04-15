@@ -1,5 +1,6 @@
 __pycache__
 .well-known
 .env
+venv
 data/*.csv
 db/*.db
