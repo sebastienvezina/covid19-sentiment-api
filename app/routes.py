@@ -112,7 +112,7 @@ def sync():
     import csv
     dir_path = os.path.dirname(os.path.realpath(__file__))
 
-    with open(os.path.join(app.config["APP_BASEDIR"], 'data', 'hourly_means_previous.csv'), newline='\n', encoding='utf-8') as f:
+    with open(os.path.join(app.config["APP_BASEDIR"], 'data', 'hourly_means.csv'), newline='\n', encoding='utf-8') as f:
         reader = csv.reader(f)
         hourly_means_csv = list(reader)
     
