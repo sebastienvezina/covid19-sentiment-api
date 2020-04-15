@@ -3,7 +3,7 @@ import os
 
 class Config:
     # General
-    FLASK_DEBUG = False)
+    FLASK_DEBUG = False
 
     # Database
     APP_BASEDIR = os.path.dirname(__file__)
