@@ -1,2 +1,2 @@
 #/bin/bash
-sudo systemctl restart covid19
+sudo systemctl restart covid19-api.sebastienvezina.com
