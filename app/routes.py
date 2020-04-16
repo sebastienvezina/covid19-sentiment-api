@@ -31,7 +31,7 @@ def get_hourlymeans(mode):
     return jsonify(hourly_means)
 
 @app.route("/newsheadlines/<mode>/<qty>", methods=['GET'])
-def get_newsheadlines(mode):
+def get_newsheadlines(mode, qty):
     # define marshmallow schema
     newsheadlines_schema = NewsHeadlineSchema(many=True)
 
