@@ -135,3 +135,5 @@ def ip():
     ip = request.remote_addr
     if "159.203.37.8" != ip:
         return "nice try " + str(ip)
+    else:
+        return "IP: " + str(ip)
