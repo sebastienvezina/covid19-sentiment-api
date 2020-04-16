@@ -36,11 +36,11 @@ def get_newsheadlines(mode, qty):
     newsheadlines_schema = NewsHeadlineSchema(many=True)
 
     if 'best' == mode:
-        newsheadlines_query = NewsHeadline.query.order_by(NewsHeadline.sentiment.desc()).limit(qty).all()
+        newsheadlines_query = NewsHeadline.query.group_by(NewsHeadline.title).order_by(NewsHeadline.sentiment.desc()).limit(qty).all()
     elif 'worst' == mode:
-        newsheadlines_query = NewsHeadline.query.order_by(NewsHeadline.sentiment.asc()).limit(qty).all()    
+        newsheadlines_query = NewsHeadline.query.group_by(NewsHeadline.title).order_by(NewsHeadline.sentiment.asc()).limit(qty).all()    
     else:
-        newsheadlines_query = NewsHeadline.query.all()
+        newsheadlines_query = NewsHeadline.query.group_by(NewsHeadline.title).all()
 
     newsheadlines = newsheadlines_schema.dump(newsheadlines_query)
     return jsonify(newsheadlines)
@@ -69,7 +69,12 @@ def update():
     
     model = load(os.path.join(app.config["APP_BASEDIR"],'model','model_v2.joblib'))
     totalSentiment = 0.0
+    newsheadline_schema = NewsHeadlineSchema()
+
     for a in articles:
+        newsheadlines_query = NewsHeadline.query.filter(NewsHeadline.title == a['title']).all()
+
+        
         timestamp_parts = a['publishedAt'].split("T")
         timestamp = timestamp_parts[0] + " " + timestamp_parts[1][:8]
    
@@ -99,8 +104,7 @@ def update():
         db.session.commit()
 
     mean = totalSentiment / len(articles)
-
-    new_hourlymean = HourlyMean(timestamp=datetime.now(), mean=mean)
+    new_hourlymean = HourlyMean(timestamp=datetime.strptime(now.strftime('%Y-%m-%d %H:00:00'),'%Y-%m-%d %H:%M:%S'), mean=mean)
 
     db.session.add(new_hourlymean)
     db.session.commit()
