@@ -51,6 +51,12 @@ def hello():
 
 @app.route("/update")
 def update():
+
+    #make sure only the server can call this
+    ip = request.remote_addr
+    if "159.203.37.8" != ip:
+        return "nice try"
+    
     ###
     # Uses https://newsapi.org to fetch latest headlines about Covid-19 and store them into a CSV file
     #
@@ -127,4 +133,5 @@ def sync():
 @app.route('/ip')
 def ip():
     ip = request.remote_addr
-    return "Client IP is: " + str(ip)
+    if "159.203.37.8" != ip:
+        return "nice try " + str(ip)
