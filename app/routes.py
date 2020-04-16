@@ -30,15 +30,15 @@ def get_hourlymeans(mode):
     hourly_means = hourlymeans_schema.dump(hourly_means_query)
     return jsonify(hourly_means)
 
-@app.route("/newsheadlines/<mode>", methods=['GET'])
+@app.route("/newsheadlines/<mode>/<qty>", methods=['GET'])
 def get_newsheadlines(mode):
     # define marshmallow schema
     newsheadlines_schema = NewsHeadlineSchema(many=True)
 
-    if 'best5' == mode:
-        newsheadlines_query = NewsHeadline.query.order_by(NewsHeadline.sentiment.desc()).limit(5).all()
-    elif 'worse5' == mode:
-        newsheadlines_query = NewsHeadline.query.order_by(NewsHeadline.sentiment.asc()).limit(5).all()    
+    if 'best' == mode:
+        newsheadlines_query = NewsHeadline.query.order_by(NewsHeadline.sentiment.desc()).limit(qty).all()
+    elif 'worst' == mode:
+        newsheadlines_query = NewsHeadline.query.order_by(NewsHeadline.sentiment.asc()).limit(qty).all()    
     else:
         newsheadlines_query = NewsHeadline.query.all()
 
