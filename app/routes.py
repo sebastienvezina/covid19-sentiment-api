@@ -109,6 +109,7 @@ def update():
 
 @app.route('/sync')
 def sync():
+    '''
     import csv
     dir_path = os.path.dirname(os.path.realpath(__file__))
 
@@ -120,5 +121,10 @@ def sync():
         new_hourlymean = HourlyMean(timestamp=datetime.strptime(h[0], '%Y-%m-%d %H:%M:%S'), mean=h[1])
         db.session.add(new_hourlymean)
         db.session.commit()
-
+    '''
     return "Done syncing"
+
+@app.route('/ip')
+def ip():
+    ip = request.remote_addr
+    return "Client IP is: " + str(ip)
