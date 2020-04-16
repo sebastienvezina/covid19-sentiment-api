@@ -104,6 +104,7 @@ def update():
         db.session.commit()
 
     mean = totalSentiment / len(articles)
+    now = datetime.now()
     new_hourlymean = HourlyMean(timestamp=datetime.strptime(now.strftime('%Y-%m-%d %H:00:00'),'%Y-%m-%d %H:%M:%S'), mean=mean)
 
     db.session.add(new_hourlymean)
